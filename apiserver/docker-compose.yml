@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  ci-build-apiserver:
+    build: .
+    volumes:
+    - C:\git\azuredctspv2\apiserver:/src
+ 
+     

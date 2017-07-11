@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  azuredctsp:
+    image: azuredctsp-web
+    build:
+      context: ./azuredctsp
+      dockerfile: Dockerfile
+  azuredctsp-api:
+    image: azuredctsp-apiserver
+    
