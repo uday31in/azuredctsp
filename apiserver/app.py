@@ -1,7 +1,3 @@
-"""
-This script runs the application using a development server.
-"""
-
 import bottle
 import os
 import sys
@@ -14,8 +10,6 @@ import pickle
 import tspcalculator
 
 from bottle import *
-
-
 
 # routes contains the HTTP handlers for our server and must be imported.
 import routes
@@ -33,9 +27,9 @@ def wsgi_app():
 if __name__ == '__main__':
     PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
     STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static').replace('\\', '/')
-    HOST = os.environ.get('SERVER_HOST', 'localhost')
+    HOST = os.environ.get('SERVER_HOST', '0.0.0.0')
     try:
-        PORT = int(os.environ.get('SERVER_PORT', '5555'))
+        PORT = int(os.environ.get('SERVER_PORT', '80'))
     except ValueError:
         PORT = 5555
 
@@ -56,25 +50,28 @@ if __name__ == '__main__':
     def calculate():
 
         postrequeststring = json.dumps(request.json, sort_keys=False, indent=4)
-        python_obj = json.loads(postrequeststring)
 
-        coordinate = collections.OrderedDict()
-        i=0
-        coordinatesarray = collections.OrderedDict()
-        for dc in python_obj:
-            print (dc['name'] + "-" +  dc['longitude'] + "-" +  dc['latitude'])
+        if len(postrequeststring) ==0:
+        
+            python_obj = json.loads(postrequeststring)
+            coordinate = collections.OrderedDict()
+            i=0
+            coordinatesarray = collections.OrderedDict()
+            for dc in python_obj:
+                print (dc['name'] + "-" +  dc['longitude'] + "-" +  dc['latitude'])
          
-            coordinatesarray[dc['name']] =  ( dc['latitude'], dc['longitude'] ) #('eastasia',  [22.267,114.188])
-            DD = Datacentre( dc['displayName'], dc['id'], dc['latitude'], dc['longitude'], dc['name'], dc['subscriptionId'])
-            coordinate[i] = DD
-            i=  i+1
+                coordinatesarray[dc['name']] =  ( dc['latitude'], dc['longitude'] ) #('eastasia',  [22.267,114.188])
+                DD = Datacentre( dc['displayName'], dc['id'], dc['latitude'], dc['longitude'], dc['name'], dc['subscriptionId'])
+                coordinate[i] = DD
+                i=  i+1
+           
+            temp2 = tspcalculator.main(coordinatesarray)
+        else:
+            temp2 = tspcalculator.main()
 
-        temp2 = tspcalculator.main(coordinatesarray)
-    
         response.content_type = 'application/json'
         return temp2
     
-
 
     # Starts a local test server.
     bottle.run(server='wsgiref', host=HOST, port=PORT)

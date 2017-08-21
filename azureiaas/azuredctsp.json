@@ -439,7 +439,7 @@
                 "id": "[variables('apisubnetRef')]"
               },
               "loadBalancerBackendAddressPools": [
-                {                
+                {
                   "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('apiloadBalancerName')),'/backendAddressPools/',variables('apiloadBalancerBackEndName'))]"
                 }
               ]
@@ -484,6 +484,31 @@
               "id": "[resourceId('Microsoft.Network/networkInterfaces',concat('apinic', copyindex()))]"
             }
           ]
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat('apivm',copyIndex(),'/installcustomscript')]",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [
+        "virtualMachineLoop"
+      ],
+      "copy": {
+        "name": "extensionloop",
+        "count": "[parameters('api_numberOfInstances')]"
+      },
+      "properties": {
+        "publisher": "Microsoft.Azure.Extensions",
+        "type": "CustomScript",
+        "typeHandlerVersion": "2.0",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "fileUris": [
+            "https://raw.githubusercontent.com/uday31in/azuredctsp/master/azureiaas/customscripts/api.sh"
+          ],
+          "commandToExecute": "sh api.sh"
         }
       }
     }
