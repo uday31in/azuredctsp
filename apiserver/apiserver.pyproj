@@ -21,6 +21,7 @@
     <IsWindowsApplication>False</IsWindowsApplication>
     <PublishUrl>c:\temp\api</PublishUrl>
     <WebBrowserPort>5555</WebBrowserPort>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -46,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".dockerignore" />
+    <Content Include="api.service" />
     <Content Include="azurelocations.json">
       <SubType>Code</SubType>
     </Content>

@@ -1,9 +1,9 @@
-﻿{
+{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:62012/",
+      "applicationUrl": "http://localhost:8000/",
       "sslPort": 0
     }
   },
@@ -12,6 +12,8 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
+        "azuredctsp_apiserver": "http://localhost:8080/calculate",
+        "azuredctsp_port": "8000",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
