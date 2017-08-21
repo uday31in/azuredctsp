@@ -1,0 +1,24 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "adminUsername": {
+      "value": "uday"
+    },
+    "adminPassword": {
+      "value": "!!123abc!!123abc"
+    },
+    "vmssName": {
+      "value": "udayvmss3"
+    },
+    "publicIPAddressName": {
+      "value": "udaypip3"
+    },
+    "api_adminUsername": {
+      "value": "uday"
+    },
+    "api_adminPassword": {
+      "value": "!!123abc!!123abc"
+    }
+  }
+}
