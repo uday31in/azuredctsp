@@ -1,0 +1,11 @@
+[Unit]
+Description=apiservice
+
+[Service]
+Environment=SERVER_PORT=80
+Environment=SERVER_HOST=0.0.0.0
+ExecStart=/usr/bin/python2.7 /opt/azuredctsp/apiserver/app.py
+WorkingDirectory=/opt/azuredctsp/apiserver
+
+[Install]
+WantedBy=multi-user.target

@@ -1,9 +1,9 @@
-version: '3'
+version: '3.3'
 
 services:
   ci-build-apiserver:
     build: .
     volumes:
     - C:\git\azuredctspv2\apiserver:/src
- 
-     
+    command:
+      /bin/bash -c 'ls /src > /app/files.txt'

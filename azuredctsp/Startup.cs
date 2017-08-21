@@ -12,6 +12,7 @@ namespace azuredctsp
 {
     public class Startup
     {
+            
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
