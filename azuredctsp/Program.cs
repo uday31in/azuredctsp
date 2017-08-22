@@ -23,9 +23,8 @@ namespace azuredctsp
             Dictionary<string, string> switchMappings = new Dictionary<string, string>
             {
                 {"-apiserver", "apiserver" },
-                {"-port", "port"},
-                {"-apiserver-client", "apiserver-client" }
-
+                {"-port", "port"}
+           
             };
 
 

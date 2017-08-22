@@ -6,13 +6,12 @@ Set-ExecutionPolicy AllSigned; iex ((New-Object System.Net.WebClient).DownloadSt
 
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
 
-choco install git.install -y
-choco install dotnetcore -y
-choco install dotnetcore-sdk --version 1.1 -y
-choco install dotnetcore-windowshosting
+C:\ProgramData\chocolatey\choco.exe install git.install -y
+C:\ProgramData\chocolatey\choco.exe install dotnetcore -y
+C:\ProgramData\chocolatey\choco.exe install dotnetcore-sdk -y
+C:\ProgramData\chocolatey\choco.exe install dotnetcore-windowshosting -y
 
+"C:\Program Files\Git\bin\git.exe" clone https://github.com/uday31in/azuredctsp.git c:\app
 
-
-dotnet restore ./azuredctsp.sln && dotnet publish ./azuredctsp.sln -c Release -o ./obj/Docker/publish"
-
-git clone https://github.com/uday31in/azuredctsp.git c:\app
+"C:\Program Files\dotnet\dotnet.exe" restore c:\app\azuredctsp.sln
+"C:\Program Files\dotnet\dotnet.exe" publish c:\app\azuredctsp.sln -o c:\app\bin\Debug\netcoreapp2.0 -r win10-x64 --self-contained 
