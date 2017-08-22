@@ -11,6 +11,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "apiserver", "apiserver\apis
 EndProject
 Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "azureiaas", "azureiaas\azureiaas.deployproj", "{4CA00E7D-078F-47A3-AD41-8B35BF45DC64}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deployment", "deployment", "{94D13ED6-3471-48FD-9433-C375C06DC6FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4CA00E7D-078F-47A3-AD41-8B35BF45DC64} = {94D13ED6-3471-48FD-9433-C375C06DC6FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {79B590F1-FC86-41D8-8191-C51B9A6D22B5}

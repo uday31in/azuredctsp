@@ -25,6 +25,7 @@
   <Import Condition=" Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Deployment\1.1\DeploymentProject.targets') " Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Deployment\1.1\DeploymentProject.targets" />
   <!-- vertag<:>end -->
   <ItemGroup>
+    <Content Include="azuredctsp.private.json" />
     <Content Include="customscripts\api.sh" />
     <None Include="Deployment.targets">
       <Visible>False</Visible>

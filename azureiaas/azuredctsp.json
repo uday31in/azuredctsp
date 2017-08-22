@@ -95,11 +95,23 @@
       "type": "string",
       "defaultValue": "publicweb4"
 
-    }
+    },
+    "workspaceId": {
+      "type": "string",
+      "defaultValue": ""
 
+    },
+    "workspaceKey": {
+      "type": "string",
+      "defaultValue": ""
+
+    }
 
   },
   "variables": {
+
+    "apiVersion": "2015-06-15",
+
     "namingInfix": "[toLower(substring(concat(parameters('vmssName'), uniqueString(resourceGroup().id)), 0, 9))]",
     "vnetName": "vnet",
     "subnetNameFrontend": "frontend",
@@ -107,7 +119,7 @@
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('vnetName'))]",
     "websubnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetNameFrontend'))]",
     "apisubnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetNameBackend'))]",
-    
+
     "publicIPAddressName": "[parameters('publicIPAddressName')]",
     "loadBalancerName": "webloadBalancer",
     "loadBalancerFrontEndName": "weblbFE",
@@ -513,13 +525,14 @@
       }
     },
     {
+      "condition": "[greater(length(parameters('workspaceId')), 0)]",
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "<extension-deployment-name>",
-      "apiVersion": "<api-version>",
-      "location": "<location>",
+      "name": "[concat('apivm',copyIndex(),'/extOmsAgentForLinux')]",
+      "apiVersion": "[variables('apiVersion')]",
+      "location": "[resourceGroup().location]",
       "dependsOn": [
         "virtualMachineLoop"
-       ],
+      ],
       "copy": {
         "name": "extensionloop",
         "count": "[parameters('api_numberOfInstances')]"
