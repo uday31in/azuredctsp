@@ -218,13 +218,13 @@
                   "publisher": "Microsoft.Compute",
                   "settings": {
                     "fileUris": [
-                      "[concat(parameters('_artifactsLocation'), '/customscripts/web.ps1')]"
+                      "https://raw.githubusercontent.com/uday31in/azuredctsp/master/azureiaas/customscripts/web.ps1"
                     ]
                   },
                   "typeHandlerVersion": "1.8",
                   "autoUpgradeMinorVersion": true,
                   "protectedSettings": {
-                    "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File customscripts/web.ps1"
+                    "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File web.ps1"
                   },
                   "type": "CustomScriptExtension"
                 }

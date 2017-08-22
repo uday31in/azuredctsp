@@ -1,7 +1,7 @@
 ﻿Write-Host "Hello World!"
 
 Set-ItemProperty HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU -Name NoAutoUpdate -Value 1
-add-windowsfeature web-server -IncludeManagementTools
+add-windowsfeature web-server,Web-Scripting-Tools -IncludeManagementTools
 
 Set-ExecutionPolicy AllSigned; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
@@ -17,8 +17,10 @@ $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";"
 &"C:\Program Files\Git\bin\git.exe" clone https://github.com/uday31in/azuredctsp.git c:\app
 
 
-&"C:\Program Files\dotnet\dotnet.exe" publish "C:\app\azuredctsp\azuredctsp.csproj" -o c -r win10-x64 --self-contained 
+&"C:\Program Files\dotnet\dotnet.exe" publish "C:\app\azuredctsp\azuredctsp.csproj" -o c:\app\bin -r win10-x64 --self-contained 
 
+
+Import-Module WebAdministration
 Set-ItemProperty 'IIS:\Sites\Default Web Site\' -Name physicalPath -Value C:\app\bin\
 set-ItemProperty 'IIS:\AppPools\DefaultAppPool' -Name managedRuntimeVersion -Value ""
 

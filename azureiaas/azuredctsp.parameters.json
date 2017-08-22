@@ -9,10 +9,10 @@
       "value": "!!123abc!!123abc"
     },
     "vmssName": {
-      "value": "udayvmss4"
+      "value": "udayvmss7"
     },
     "publicIPAddressName": {
-      "value": "udaypip4"
+      "value": "udaypip7"
     },
     "api_adminUsername": {
       "value": "uday"
