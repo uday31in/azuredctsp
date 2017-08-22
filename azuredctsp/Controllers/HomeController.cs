@@ -8,6 +8,8 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
 using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace azuredctsp.Controllers
 {
@@ -32,23 +34,32 @@ namespace azuredctsp.Controllers
 
     public class HomeController : Controller
     {
+        private readonly IHostingEnvironment _hostingEnvironment;
+
+        public HomeController(IHostingEnvironment hostingEnvironment)
+        {
+            _hostingEnvironment = hostingEnvironment;
+        }
+
+
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult About()
+        [HttpGet]
+        public JsonResult Locations()
         {
-            ViewData["Message"] = "Your application description page.";
+            string webRootPath = _hostingEnvironment.WebRootPath;
+            string contentRootPath = _hostingEnvironment.ContentRootPath;
 
-            return View();
-        }
 
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
+            string allText = System.IO.File.ReadAllText(Path.Combine(webRootPath, "azurelocations.json"));
 
-            return View();
+            
+            object jsonObject = JsonConvert.DeserializeObject(allText);
+            return Json(jsonObject);
+
         }
 
         public IActionResult Error()
