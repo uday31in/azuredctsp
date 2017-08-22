@@ -3,22 +3,22 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "adminUsername": {
-      "value": "uday"
+      "value": ""
     },
     "adminPassword": {
-      "value": "!!123abc!!123abc"
+      "value": ""
     },
     "vmssName": {
-      "value": "udayvmss7"
+      "value": ""
     },
     "publicIPAddressName": {
-      "value": "udaypip7"
+      "value": ""
     },
     "api_adminUsername": {
-      "value": "uday"
+      "value": ""
     },
     "api_adminPassword": {
-      "value": "!!123abc!!123abc"
+      "value": ""
     }
   }
 }

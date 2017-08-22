@@ -262,3 +262,6 @@ __pycache__/
 
 # WebDeploy Package
 _output
+
+#Ingoring secrets in ARM
+*private.json

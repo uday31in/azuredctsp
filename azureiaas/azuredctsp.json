@@ -511,6 +511,30 @@
           "commandToExecute": "sh api.sh"
         }
       }
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "<extension-deployment-name>",
+      "apiVersion": "<api-version>",
+      "location": "<location>",
+      "dependsOn": [
+        "virtualMachineLoop"
+       ],
+      "copy": {
+        "name": "extensionloop",
+        "count": "[parameters('api_numberOfInstances')]"
+      },
+      "properties": {
+        "publisher": "Microsoft.EnterpriseCloud.Monitoring",
+        "type": "OmsAgentForLinux",
+        "typeHandlerVersion": "1.0",
+        "settings": {
+          "workspaceId": "[parameters('workspaceId')]"
+        },
+        "protectedSettings": {
+          "workspaceKey": "[parameters('workspaceKey')]"
+        }
+      }
     }
   ]
 }
