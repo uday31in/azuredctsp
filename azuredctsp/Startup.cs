@@ -19,7 +19,6 @@ namespace azuredctsp
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables()
-                .UseIISIntegration()
             Configuration = builder.Build();
         }
 
