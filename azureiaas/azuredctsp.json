@@ -94,17 +94,18 @@
     "publicIPAddressName": {
       "type": "string",
       "defaultValue": "publicweb4"
-
     },
     "workspaceId": {
       "type": "string",
       "defaultValue": ""
-
     },
     "workspaceKey": {
       "type": "string",
       "defaultValue": ""
-
+    },
+    "omsWorkspacename": {
+      "type": "string",
+      "defaultValue": "kubemon"
     }
 
   },
@@ -159,6 +160,108 @@
         "platformFaultDomainCount": "2",
         "platformUpdateDomainCount": "2",
         "managed": "true"
+      }
+    },
+
+    {
+      "condition": "[greater(length(parameters('workspaceId')), 0)]",
+      "type": "Microsoft.Compute/virtualMachineScaleSets",
+      "name": "[parameters('vmssName')]",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2016-04-30-preview",
+      "dependsOn": [
+        "[concat('Microsoft.Network/virtualNetworks/', variables('vnetName'))]",
+        "[resourceId('Microsoft.Network/loadBalancers', variables('loadBalancerName'))]"
+      ],
+      "sku": {
+        "name": "[parameters('vmSku')]",
+        "capacity": "[parameters('instanceCount')]"
+      },
+      "properties": {
+        "overprovision": "true",
+        "upgradePolicy": {
+          "mode": "Manual"
+        },
+        "virtualMachineProfile": {
+          "storageProfile": {
+            "osDisk": {
+              "createOption": "FromImage"
+            },
+            "imageReference": "[variables('web_imageReference')]"
+          },
+          "osProfile": {
+            "computerNamePrefix": "[parameters('vmssName')]",
+            "adminUsername": "[parameters('adminUsername')]",
+            "adminPassword": "[parameters('adminPassword')]"
+          },
+          "networkProfile": {
+            "networkInterfaceConfigurations": [
+              {
+                "name": "nic",
+                "properties": {
+                  "primary": "true",
+                  "ipConfigurations": [
+                    {
+                      "name": "ipconfig",
+                      "properties": {
+                        "subnet": {
+                          "id": "[variables('websubnetRef')]"
+                        },
+                        "loadBalancerBackendAddressPools": [
+                          {
+                            "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/loadBalancers/', variables('loadBalancerName'), '/backendAddressPools/', variables('loadBalancerBackEndName'))]"
+                          }
+                        ],
+                        "loadBalancerInboundNatPools": [
+                          {
+                            "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/loadBalancers/', variables('loadBalancerName'), '/inboundNatPools/', variables('loadBalancerNatPoolName'))]"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "extensionProfile": {
+            "extensions": [
+              {
+                "name": "customScript",
+                "properties": {
+                  "publisher": "Microsoft.Compute",
+                  "settings": {
+                    "fileUris": [
+                      "https://raw.githubusercontent.com/uday31in/azuredctsp/master/azureiaas/customscripts/web.ps1"
+                    ]
+                  },
+                  "typeHandlerVersion": "1.8",
+                  "autoUpgradeMinorVersion": true,
+                  "protectedSettings": {
+                    "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File web.ps1"
+                  },
+                  "type": "CustomScriptExtension"
+                }
+              },
+              {
+                "name": "OMSAgent",
+                "properties": {
+                  "publisher": "Microsoft.EnterpriseCloud.Monitoring",
+                  "type": "MicrosoftMonitoringAgent",
+                  "typeHandlerVersion": "1.0",
+                  "autoUpgradeMinorVersion": true,
+                  "settings": {
+                    "workspaceId": "[parameters('workspaceId')]"
+                  },
+                  "protectedSettings": {
+                    "workspaceKey": "[parameters('workspaceKey')]"
+                  }
+                }
+              }
+
+            ]
+          }
+        }
       }
     },
 
@@ -540,7 +643,7 @@
       "properties": {
         "publisher": "Microsoft.EnterpriseCloud.Monitoring",
         "type": "OmsAgentForLinux",
-        "typeHandlerVersion": "1.0",
+        "typeHandlerVersion": "1.4",
         "settings": {
           "workspaceId": "[parameters('workspaceId')]"
         },

@@ -13,6 +13,17 @@ Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "azureiaas", "azureiaas\azur
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deployment", "deployment", "{94D13ED6-3471-48FD-9433-C375C06DC6FE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "aci", "aci", "{12E44752-884C-403F-B01E-E613D1C4C28C}"
+EndProject
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "webapi", "deployment\aci\webapi\webapi.deployproj", "{3D5C4DB9-BFC2-434C-873C-848010FD0AB5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "iaas", "iaas", "{026412ED-36DD-497D-9F2A-E106AEE456D9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "kubernetes", "kubernetes", "{362C4337-1A32-4629-9077-D83814491021}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\Users\udpandya\OneDrive - Microsoft\Kubernetes\azuredc-tsp-web-external-api-internal-two-pods-Linux-only.yaml = ..\..\Users\udpandya\OneDrive - Microsoft\Kubernetes\azuredc-tsp-web-external-api-internal-two-pods-Linux-only.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,12 +46,20 @@ Global
 		{4CA00E7D-078F-47A3-AD41-8B35BF45DC64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CA00E7D-078F-47A3-AD41-8B35BF45DC64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CA00E7D-078F-47A3-AD41-8B35BF45DC64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D5C4DB9-BFC2-434C-873C-848010FD0AB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D5C4DB9-BFC2-434C-873C-848010FD0AB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D5C4DB9-BFC2-434C-873C-848010FD0AB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D5C4DB9-BFC2-434C-873C-848010FD0AB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{4CA00E7D-078F-47A3-AD41-8B35BF45DC64} = {94D13ED6-3471-48FD-9433-C375C06DC6FE}
+		{4CA00E7D-078F-47A3-AD41-8B35BF45DC64} = {026412ED-36DD-497D-9F2A-E106AEE456D9}
+		{12E44752-884C-403F-B01E-E613D1C4C28C} = {94D13ED6-3471-48FD-9433-C375C06DC6FE}
+		{3D5C4DB9-BFC2-434C-873C-848010FD0AB5} = {12E44752-884C-403F-B01E-E613D1C4C28C}
+		{026412ED-36DD-497D-9F2A-E106AEE456D9} = {94D13ED6-3471-48FD-9433-C375C06DC6FE}
+		{362C4337-1A32-4629-9077-D83814491021} = {94D13ED6-3471-48FD-9433-C375C06DC6FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {79B590F1-FC86-41D8-8191-C51B9A6D22B5}

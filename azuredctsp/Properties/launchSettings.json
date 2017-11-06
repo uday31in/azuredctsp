@@ -21,9 +21,10 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_apiserverurl": "http://52.168.169.234/calculate"
       },
-      "applicationUrl": "http://localhost:62013"
+      "applicationUrl": ""
     }
   }
 }

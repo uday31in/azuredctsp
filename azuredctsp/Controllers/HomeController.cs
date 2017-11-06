@@ -10,6 +10,7 @@ using System.Text;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using Microsoft.Extensions.Options;
 
 namespace azuredctsp.Controllers
 {
@@ -35,9 +36,11 @@ namespace azuredctsp.Controllers
     public class HomeController : Controller
     {
         private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly ClientConfig _config;
 
-        public HomeController(IHostingEnvironment hostingEnvironment)
+        public HomeController(IOptions<ClientConfig> config, IHostingEnvironment hostingEnvironment)
         {
+            _config = config.Value;
             _hostingEnvironment = hostingEnvironment;
         }
 
@@ -65,6 +68,7 @@ namespace azuredctsp.Controllers
         public IActionResult Error()
         {
             return View();
+            
         }
 
         [HttpPost]
@@ -74,10 +78,10 @@ namespace azuredctsp.Controllers
             {
                 return BadRequest();
             }
-            string _url = ClientConfig.apiserverurl;
-
+            string _url = _config.apiserverurl;
 
             var request = JsonConvert.SerializeObject(value);
+
             var response = await GetData(_url, request);
 
 
