@@ -1,0 +1,4 @@
+dependencies:
+- name: azuredctsp-api
+  version: 0.1.0
+  repository: "file://../api"

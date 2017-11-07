@@ -1,0 +1,14 @@
+name: azuredctsp-api
+description: A basic azuredctsp-api HTTP server
+version: 0.1.0
+keywords:
+  - http
+  - azuredctsp-api
+  - www
+  - api
+home: https://github.com/kubernetes/helm
+sources:
+  - https://hub.docker.com/_/azuredctsp-api/
+maintainers:
+  - name: uday
+    email: test@test123.com

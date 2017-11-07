@@ -1,0 +1,23 @@
+replicaCount: 1
+restartPolicy: Never
+
+image:
+  repository: uday31in/azuredctsp-apiserver
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  annotations: {}
+  clusterIP: ""
+  externalIPs: []
+  loadBalancerIP: ""
+  loadBalancerSourceRanges: []
+  type: ClusterIP
+  port: 80
+  nodePort: ""
+
+podAnnotations: {}
+
+resources: {}
+
+nodeSelector: {}

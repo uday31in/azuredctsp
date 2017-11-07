@@ -1,0 +1,14 @@
+name: azuredctsp-web
+description: A basic azuredctsp-web HTTP server
+version: 0.1.0
+keywords:
+  - http
+  - azuredctsp-web
+  - www
+  - web
+home: https://github.com/kubernetes/helm
+sources:
+  - https://hub.docker.com/_/azuredctsp-web/
+maintainers:
+  - name: technosophos
+    email: mbutcher@deis.com

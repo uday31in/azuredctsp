@@ -1,0 +1,61 @@
+replicaCount: 1
+restartPolicy: Never
+
+image:
+  repository: uday31in/azuredctsp-web
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  annotations: {}
+  clusterIP: ""
+  externalIPs: []
+  loadBalancerIP: ""
+  loadBalancerSourceRanges: []
+  type: LoadBalancer
+  port: 80
+  nodePort: ""
+
+podAnnotations: {}
+
+resources: {}
+
+nodeSelector: {}
+
+
+mariadb:
+  mariadbDatabase: bitnami_wordpress
+  mariadbUser: bn_wordpress
+  persistence:
+    enabled: true
+    accessMode: ReadWriteOnce
+    size: 8Gi
+serviceType: LoadBalancer
+healthcheckHttps: false
+ingress:
+  ## Set to true to enable ingress record generation
+  enabled: false
+
+  ## The list of hostnames to be covered with this ingress record.
+  ## Most likely this will be just one host, but in the event more hosts are needed, this is an array
+  hosts:
+  - name: wordpress.local
+
+    ## Set this to true in order to enable TLS on the ingress record
+    ## A side effect of this will be that the backend wordpress service will be connected at port 443
+    tls: false
+
+    ## If TLS is set to true, you must declare what secret will store the key/certificate for TLS
+    tlsSecret: wordpress.local-tls
+    annotations:
+
+  secrets:
+persistence:
+  enabled: true
+  accessMode: ReadWriteOnce
+  size: 10Gi
+resources:
+  requests:
+    memory: 512Mi
+    cpu: 300m
+nodeSelector: {}
