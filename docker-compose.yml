@@ -4,10 +4,10 @@ services:
   azuredctsp:
     image: azuredctsp-web
     build:
-      context: ./azuredctsp
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: azuredctsp/Dockerfile
     environment:
-      - ASPNETCORE_apiserverurl=http://52.168.169.234/calculate
+      - ASPNETCORE_apiserverurl=http://azuredctsp-api
   azuredctsp-api:
-    image: azuredctsp-apiserver
+    image: uday31in/azuredctsp-apiserver
     

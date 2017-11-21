@@ -5,8 +5,11 @@
     <DockerLaunchBrowser>True</DockerLaunchBrowser>
     <DockerServiceUrl>http://localhost:{ServicePort}</DockerServiceUrl>
     <DockerServiceName>azuredctsp</DockerServiceName>
-    <DockerTargetOS>Linux</DockerTargetOS>
+    <!--<DockerTargetOS>Linux</DockerTargetOS>-->
     <ProjectVersion>2.0</ProjectVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DockerTargetOS>Linux</DockerTargetOS>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.ci.build.yml" />
