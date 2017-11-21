@@ -4,7 +4,7 @@ restartPolicy: Never
 image:
   repository: uday31in/azuredctsp-apiserver
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 service:
   annotations: {}
