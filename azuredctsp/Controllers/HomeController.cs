@@ -78,7 +78,8 @@ namespace azuredctsp.Controllers
             {
                 return BadRequest();
             }
-            string _url = _config.apiserverurl;
+            
+            string _url = _config.apiserverurl + "/calculate"; 
 
             var request = JsonConvert.SerializeObject(value);
 

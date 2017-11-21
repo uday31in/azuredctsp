@@ -1,14 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
-    <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
+    <TargetFramework>netcoreapp2.0</TargetFramework>    
   </PropertyGroup>
+
+  <!--https://github.com/dotnet/coreclr/issues/13542-->
   <PropertyGroup>
+    <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
+  </PropertyGroup>
+  <!--<PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <RuntimeIdentifiers>win10-x64;osx.10.11-x64</RuntimeIdentifiers>
-  </PropertyGroup>
+  </PropertyGroup>-->
   <PropertyGroup>
     <!--
     <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
@@ -18,11 +22,24 @@
     <ApplicationInsightsResourceId>/subscriptions/ffec384a-4758-4547-aeba-605759d5bf79/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/azuredctsp</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/ffec384a-4758-4547-aeba-605759d5bf79/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/azuredctsp</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>RELEASE;NETCOREAPP2_0</DefineConstants>
+    <Optimize>false</Optimize>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
   <ItemGroup>
+     
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+     
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+     
+    <PackageReference Include="Microsoft.AspNetCore.Antiforgery" Version="2.0.1" />
+     
+    <PackageReference Include="Microsoft.Azure.DocumentDB.Core" Version="1.7.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.0.1" />
+    
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
@@ -37,6 +54,9 @@
     <Content Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Hub\" />
   </ItemGroup>
 
 </Project>

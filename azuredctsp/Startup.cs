@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,7 +8,7 @@ namespace azuredctsp
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+       public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
             
@@ -23,9 +22,10 @@ namespace azuredctsp
             // Add framework services.
             services.AddOptions();
             services.Configure<ClientConfig>(Configuration);
+            services.Configure<DocumentDBConfig>(Configuration.GetSection("DocumentDB"));            
             services.AddMvc();
             services.AddApplicationInsightsTelemetry(Configuration);
-            
+            //services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,11 +46,16 @@ namespace azuredctsp
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            
+
             app.UseApplicationInsightsExceptionTelemetry();
 
             app.UseStaticFiles();
-            
+
+            //app.UseSignalR(routes =>
+            //{
+            //    routes.MapHub<Chat>("chat");
+            //});
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

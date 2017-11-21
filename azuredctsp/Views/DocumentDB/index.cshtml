@@ -1,0 +1,91 @@
+﻿@using System.Web
+@model azuredctsp.DocumentDBControllerModel
+
+@{
+    ViewData["Title"] = "View";
+}
+
+@inject Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration TelemetryConfiguration 
+
+<style>
+    textarea {
+        border: 1px solid #999999;
+        width: 98%;
+        margin: 5px 0;
+        padding: 3px;
+    }
+
+    .textareacontainer {
+        padding-right: 12px; /* 1 + 3 + 3 + 1 */
+    }
+</style>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/signalr-client-1.0.0-alpha2-final.js"></script>
+
+
+<h2>@ViewBag.Message</h2>
+
+<div>
+    <label id="dynamicContentContainer"></label>
+    <script>
+
+        $.get('@Url.Action("StartAsync", "documentdb")', { id: "@Model.Guid" }, function (content) {
+            $("#dynamicContentContainer").text(content);
+        });
+    </script>
+</div>
+
+
+
+
+
+<div style="border: 1px solid black; margin: 5px">
+    <h2>Document Insert operations/second</h2>
+
+    <p>ID: @Model.Guid</p>
+    <textarea id="result2" class="textareacontainer"></textarea>
+    <script>
+
+        String.prototype.format = function () {
+            var formatted = this;
+            for (var arg in arguments) {
+                formatted = formatted.replace("{" + arg + "}", arguments[arg]);
+            }
+            return formatted;
+        };
+
+        function executeQuery() {
+            $.ajax({
+                url: '@Url.Action("GetTimeSeries", "documentdb")',
+                data: { id: "@Model.Guid" },
+                dataType: 'json',
+                success: function (data) {
+                                       
+
+                    if (data.length!=0) {
+
+                        var result = JSON.stringify(data);
+                        $('#result2').val((("Time : {4}, Inserted {0} docs at {1} writes/s, {2} RU/s {3}B max monthly 1KB reads").format(data[0].docs, data[0].writes, data[0].rus, data[0].reads, data[0].Time)));
+                    }
+                    else {
+
+                        $('#result2').val("error!");
+                    }
+
+                }
+            });
+            setTimeout(executeQuery, 1000 * 1); // you could choose not to continue on failure...
+        }
+
+        setTimeout(executeQuery, 4000*1);
+
+    </script>
+
+</div>
+
+
+<div style="{style = "width: 100px;"})" id="jsonresult"> 
+    
+  
+</div>

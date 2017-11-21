@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/azuredctsp",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:8000/",
       "sslPort": 0
@@ -18,13 +22,14 @@
       }
     },
     "azuredctsp": {
-      "commandName": "Project",
-      "launchBrowser": true,
+      "commandName": "Project",      
+      "launchUrl": "/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ASPNETCORE_apiserverurl": "http://52.168.169.234/calculate"
+        "ASPNETCORE_apiserverurl": "http://localhost:5555"
+        
       },
-      "applicationUrl": ""
+      "applicationUrl": "http://localhost:5000"
     }
   }
 }

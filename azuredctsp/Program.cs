@@ -1,20 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore;
-using Microsoft.Extensions.Logging;
+using System;
+using System.Linq;
 
 namespace azuredctsp
 {
 
     public class ClientConfig
     {
-        public  string apiserverurl { get; set; }
+        public string apiserverurl { get; set; }
     }
+
+    public class DocumentDBConfig
+    {
+        public string EndPointUrl { get; set; }
+        public string AuthorizationKey { get; set; }
+        public string DatabaseName { get; set; }
+        public string CollectionName { get; set; }
+        public int CollectionThroughput { get; set; }
+        public bool ShouldCleanupOnStart { get; set; }
+        public bool ShouldCleanupOnFinish { get; set; }
+        public int DegreeOfParallelism { get; set; }
+        public string NumberOfDocumentsToInsert { get; set; }
+        public string CollectionPartitionKey { get; set; }
+        public string DocumentTemplateFile { get; set; }
+    }
+
 
     public class Program
     {
@@ -23,13 +35,14 @@ namespace azuredctsp
         {
             // https://github.com/aspnet/MetaPackages/issues/221
 
-            var commandConfig = new ConfigurationBuilder()
+            var builder = new ConfigurationBuilder()
                .AddCommandLine(args)
+               .AddEnvironmentVariables()
                .Build();
 
             WebHost.CreateDefaultBuilder(args)
-                 .UseConfiguration(commandConfig)
-                 .UseStartup<Startup>()                 
+                 .UseConfiguration(builder)
+                 .UseStartup<Startup>()                                
                  .Build()
                  .Run();
         }
