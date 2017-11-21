@@ -1,9 +1,6 @@
-FROM prodataninja/ubuntu-python2.7
+#docker build . -t uday31in/azuredctsp-apiserver
 
-ARG source=.
-WORKDIR /app
-EXPOSE 80
-COPY ${source:-obj/Docker/publish} .
+FROM prodataninja/ubuntu-python2.7
 
 RUN set -x \
 	&& apt-get update \
@@ -19,7 +16,14 @@ RUN set -x \
 #RUN set -x \
 #	&& python ortools_examples/examples/python/golomb8.py
 
+
+ARG source=.
+WORKDIR /app
+EXPOSE 80
+COPY ${source:-obj/Docker/publish} .
+
 RUN set -x \
 	&& pip install -r requirements.txt --user
-	
+
+
 ENTRYPOINT ["python", "app.py"]

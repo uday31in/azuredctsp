@@ -8,6 +8,7 @@ import collections
 import simplejson
 import pickle
 import tspcalculator
+import random
 
 from bottle import *
 
@@ -40,10 +41,22 @@ if __name__ == '__main__':
         the server should be configured to serve the static files."""
         return bottle.static_file(filepath, root=STATIC_ROOT)
 
+    @bottle.route('/static/azurelocations-delay.json')
+    def server_static_delay():
+        """Handler for static files, used with the development server.
+        When running under a production server such as IIS or Apache,
+        the server should be configured to serve the static files."""
+        seconds = random.randint(0, 9)
+        logging.info("Sleeping for %s", seconds)
+
+        time.sleep(seconds)
+        return bottle.static_file("azurelocations-delay.json", root=STATIC_ROOT)
+
 
     @bottle.route('/calculate',method = ['OPTIONS'])
     def enableCORSAfterRequestHook():
         bottle.response.set_header('Access-Control-Allow-Origin', '*')
+
 
     @bottle.route('/calculate',method = ['POST'])
     #@allow_cors 

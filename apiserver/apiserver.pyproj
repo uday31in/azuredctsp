@@ -54,6 +54,8 @@
     <Content Include="docker-compose.yml" />
     <Content Include="Dockerfile" />
     <Content Include="requirements.txt" />
+    <Content Include="static\azurelocations-delay.json" />
+    <Content Include="static\azurelocations.json" />
     <Content Include="static\content\bootstrap.css" />
     <Content Include="static\content\bootstrap.min.css" />
     <Content Include="static\content\site.css" />
