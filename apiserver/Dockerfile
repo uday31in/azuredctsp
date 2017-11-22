@@ -6,16 +6,7 @@ RUN set -x \
 	&& apt-get update \
 	&& pip install --upgrade pip \
 	&& curl https://bootstrap.pypa.io/ez_setup.py -o - | python \
-	&& pip install ez_setup  \
-	&& wget https://github.com/google/or-tools/releases/download/v6.1/or-tools_python_examples_v6.1.4333.tar.gz \
-	&& tar -zxf or-tools_python_examples_v6.1.4333.tar.gz \
-	&& cd ortools_examples \
-	&& python setup.py install \
-	&& pip install --upgrade ortools
-	
-#RUN set -x \
-#	&& python ortools_examples/examples/python/golomb8.py
-
+	&& pip install ez_setup  
 
 ARG source=.
 WORKDIR /app

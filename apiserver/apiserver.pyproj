@@ -48,11 +48,13 @@
   <ItemGroup>
     <Content Include=".dockerignore" />
     <Content Include="api.service" />
+    <None Include="apiserver20171122024433 - Web Deploy.pubxml" />
     <Content Include="azurelocations.json">
       <SubType>Code</SubType>
     </Content>
     <Content Include="docker-compose.yml" />
     <Content Include="Dockerfile" />
+    <None Include="registry.hub.docker.com_uday31in.pubxml" />
     <Content Include="requirements.txt" />
     <Content Include="static\azurelocations-delay.json" />
     <Content Include="static\azurelocations.json" />
