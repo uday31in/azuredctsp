@@ -41,7 +41,7 @@ spec:
             - name: azuredctsp_port
               value: "80"
             - name: ASPNETCORE_apiserverurl
-              value: http://{{ template "azuredctsp-api.fullname" .}}.default.svc.cluster.local/calculate
+              value: http://{{ template "azuredctsp-api.fullname" .}}.default.svc.cluster.local
           # This (and the volumes section below) mount the config map as a volume.
 #          volumeMounts:
 #            - mountPath: /usr/share/azuredctsp-web/html
