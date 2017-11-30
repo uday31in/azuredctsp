@@ -5,7 +5,7 @@ metadata:
   labels:
     app: azuredctsp-web-label
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: k8.uday31in.com
+    external-dns.alpha.kubernetes.io/hostname: web.k8.uday365.com
 spec:
   ports:    
     - protocol: TCP
@@ -22,7 +22,7 @@ metadata:
   name: azuredctsp-apiserver
   annotations:
     service.beta.kubernetes.io/azure-load-balancer-internal: "true"
-    external-dns.alpha.kubernetes.io/hostname: k8.uday31in.com
+    external-dns.alpha.kubernetes.io/hostname: api.k8.uday365.com
   labels:
     app: azuredctsp-apiserver-label
 spec:
@@ -34,7 +34,7 @@ spec:
     protocol: TCP
   selector:
     app: azuredctsp-apiserver-pod
-  type: ClusterIP
+  type: LoadBalancer
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
