@@ -79,7 +79,9 @@ namespace azuredctsp.Controllers
                 return BadRequest();
             }
             
-            string _url = _config.apiserverurl + "/calculate"; 
+            string _url = _config.apiserverurl + "/calculate";
+            
+            Console.WriteLine("Calling API Server URL on : ", _url);
 
             var request = JsonConvert.SerializeObject(value);
 
