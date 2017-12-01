@@ -55,7 +55,7 @@ spec:
             value: "80"
           - 
             name: azuredctsp_apiserver
-            value: "http://azuredctsp-apiserver.default.svc.cluster.local/calculate"
+            value: "http://azuredctsp-apiserver.default.svc.cluster.local"
         ports: 
           - 
             containerPort: 80
@@ -77,7 +77,7 @@ spec:
     spec: 
       containers: 
         - 
-          image: uday31in/azuredctsp-apiserver
+          image: udayacr.azurecr.io/uday31in/azuredctsp-apiserver
           name: apiserver
           ports: 
             - 

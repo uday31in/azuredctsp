@@ -48,7 +48,7 @@ spec:
     spec: 
       containers: 
       - name: webclient-nano
-        image: uday31in/azuredctsp-web
+        image: udayacr.azurecr.io/uday31in/azuredctsp-web
         env: 
           - 
             name: azuredctsp_port
@@ -77,7 +77,7 @@ spec:
     spec: 
       containers: 
         - 
-          image: uday31in/azuredctsp-apiserver
+          image: udayacr.azurecr.io/uday31in/azuredctsp-apiserver
           name: apiserver
           ports: 
             - 
