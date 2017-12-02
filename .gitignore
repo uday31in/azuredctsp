@@ -266,3 +266,4 @@ _output
 #Ingoring secrets in ARM
 *private.json
 *.pubxml
+/deployment/kubernetes/deployment-helm/azuredctsp-api
