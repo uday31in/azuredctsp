@@ -365,13 +365,23 @@ namespace azuredctsp.Controllers
     public class SpinwaitController : Controller
     {
         [HttpGet]
-        public void Get()
+        public async Task<ActionResult> Get()
         {
-            var redirectUrl = "http://" + Request.Host.ToString() + "/get";
+            
 
+            var respObj = new ResponseObject()
+            {
+                startTime = DateTime.Now.ToString(),
+                origin = IpHelper.getIp(Request),
+                args = Unpack.flattenDict(Request.Query),
+                headers = Unpack.flattenDict(Request.Headers),
+                url = UriHelper.GetDisplayUrl(Request)
+
+            };
             Thread.SpinWait(Int32.MaxValue);
+            respObj.endTime = DateTime.Now.ToString();
 
-            Response.Redirect(redirectUrl);
+            return new JsonStringResult(JsonConvert.SerializeObject(respObj, Formatting.Indented));
         }
     }
 

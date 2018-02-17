@@ -90,8 +90,7 @@ namespace azuredctsp.Controllers
                 metric.Name = "RUs";
                 metric.Sum = timeseries[0].rus;
                 telemetry.TrackMetric(metric);
-
-                telemetry.TrackMetric(metric);
+                
                 return new JsonStringResult(JsonConvert.SerializeObject(timeseries, Formatting.Indented));
             }
             else

@@ -78,8 +78,10 @@ namespace azuredctsp.Controllers
             {
                 return BadRequest();
             }
+
+
+            Uri _url = new Uri(new Uri(_config.apiserverurl), "calculate");
             
-            string _url = _config.apiserverurl + "/calculate";
             
             Console.WriteLine("Calling API Server URL on : ", _url);
 
@@ -92,7 +94,7 @@ namespace azuredctsp.Controllers
         }
 
 
-        public static async Task<string> GetData(string url, string data)
+        public static async Task<string> GetData(Uri url, string data)
         {
             HttpClient client = new HttpClient();
             StringContent queryString = new StringContent(data);
@@ -100,7 +102,7 @@ namespace azuredctsp.Controllers
             var content = new StringContent(data, Encoding.UTF8, "application/json");
             //var result = client.PostAsync(url, content).Result;
 
-            HttpResponseMessage response = await client.PostAsync(new Uri(url), content);
+            HttpResponseMessage response = await client.PostAsync((url), content);
 
             response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             response.EnsureSuccessStatusCode();

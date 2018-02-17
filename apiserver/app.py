@@ -46,10 +46,12 @@ if __name__ == '__main__':
         """Handler for static files, used with the development server.
         When running under a production server such as IIS or Apache,
         the server should be configured to serve the static files."""
-        seconds = random.randint(0, 9)
+        seconds = random.randint(0, 100)
         logging.info("Sleeping for %s", seconds)
 
-        time.sleep(seconds)
+        if seconds==7:
+           time.sleep(seconds)
+
         return bottle.static_file("azurelocations-delay.json", root=STATIC_ROOT)
 
 
