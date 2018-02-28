@@ -1,0 +1,90 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: azuredctsp-web
+  labels:
+    app: azuredctsp-web-label
+spec:
+  ports:    
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      name: http
+  selector:
+    app: azuredctsp-web-pod
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: azuredctsp-apiserver
+  annotations:
+        service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+  labels:
+    app: azuredctsp-apiserver-label
+spec:
+  ports:
+    # the port that this service should serve on
+  - port: 80
+    targetPort: 80
+    name: http
+    protocol: TCP
+  selector:
+    app: azuredctsp-apiserver-pod
+  type: ClusterIP
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata: 
+  name: azuredctsp-web-deployment
+spec: 
+  replicas: 1
+  template: 
+    metadata:
+      labels: 
+        app: azuredctsp-web-pod
+        role: website
+        tier: frontend
+    spec: 
+      containers: 
+      - name: webclient-nano
+        image: udayacr.azurecr.io/uday31in/azuredctsp-web
+        env: 
+          - 
+            name: azuredctsp_port
+            value: "80"
+          - 
+            name: azuredctsp_apiserver
+            value: "http://azuredctsp-apiserver.default.svc.cluster.local"
+        ports: 
+          - 
+            containerPort: 80
+            name: http
+            protocol: TCP
+      dnsPolicy: ClusterFirst
+      nodeName: virtual-kubelet-aci-connector-linux
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata: 
+  name: azuredctsp-apiserver
+spec: 
+  replicas: 1
+  template: 
+    metadata: 
+      labels: 
+        app: azuredctsp-apiserver-pod
+        role: webapi
+        tier: backend
+    spec: 
+      containers: 
+        - 
+          image: udayacr.azurecr.io/uday31in/azuredctsp-apiserver
+          name: apiserver
+          ports: 
+            - 
+              containerPort: 80
+              name: api
+              protocol: TCP
+      dnsPolicy: ClusterFirst
+      nodeName: virtual-kubelet-aci-connector-linux
