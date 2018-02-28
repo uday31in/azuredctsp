@@ -57,7 +57,7 @@ spec:
             name: azuredctsp_port
             value: "80"
           - 
-            name: azuredctsp_apiserver
+            name: ASPNETCORE_apiserverurl
             value: "http://azuredctsp-apiserver.default.svc.cluster.local"
         ports: 
           - 
