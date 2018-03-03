@@ -1,9 +1,12 @@
+
 apiVersion: v1
 kind: Service
 metadata:
   name: azuredctsp-web
   labels:
     app: azuredctsp-web-label
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: aci-web.k8.uday365.com
 spec:
   ports:    
     - protocol: TCP
@@ -19,7 +22,7 @@ kind: Service
 metadata:
   name: azuredctsp-apiserver
   annotations:
-        service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+        external-dns.alpha.kubernetes.io/hostname: aci-api.k8.uday365.com
   labels:
     app: azuredctsp-apiserver-label
 spec:
@@ -31,7 +34,7 @@ spec:
     protocol: TCP
   selector:
     app: azuredctsp-apiserver-pod
-  type: ClusterIP
+  type: LoadBalancer
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -48,13 +51,17 @@ spec:
     spec: 
       containers: 
       - name: webclient-nano
-        image: udayacr.azurecr.io/uday31in/azuredctsp-web
+        resources:
+          requests:
+            memory: 1G
+            cpu: 1
+        image: uday31in/azuredctsp-web
         env: 
           - 
             name: azuredctsp_port
             value: "80"
           - 
-            name: azuredctsp_apiserver
+            name: ASPNETCORE_apiserverurl
             value: "http://azuredctsp-apiserver.default.svc.cluster.local"
         ports: 
           - 
@@ -62,7 +69,10 @@ spec:
             name: http
             protocol: TCP
       dnsPolicy: ClusterFirst
-      nodeName: virtual-kubelet-aci-connector-linux
+      nodeName: virtual-kubelet-uday-k8-aci-linux
+      tolerations:
+      - key: azure.com/aci
+        effect: NoSchedule
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -78,13 +88,20 @@ spec:
         tier: backend
     spec: 
       containers: 
-        - 
-          image: udayacr.azurecr.io/uday31in/azuredctsp-apiserver
+        - image: uday31in/azuredctsp-apiserver
+          imagePullPolicy: Always
           name: apiserver
+          resources:
+            requests:
+              memory: 1G
+              cpu: 1
           ports: 
             - 
               containerPort: 80
               name: api
               protocol: TCP
       dnsPolicy: ClusterFirst
-      nodeName: virtual-kubelet-aci-connector-linux
+      nodeName: virtual-kubelet-uday-k8-aci-linux
+      tolerations:
+      - key: azure.com/aci
+        effect: NoSchedule
