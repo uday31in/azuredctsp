@@ -1,0 +1,23 @@
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceInstance
+metadata:
+  name: azure-documentdb-instance2
+  namespace: testing
+spec:
+  clusterServiceClassExternalName: azure-cosmos-document-db
+  clusterServicePlanExternalName: document-db
+  parameters:
+    location: westus2
+    resourceGroup: acs-osb
+
+---
+
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceBinding
+metadata:
+  name: azure-documentdb-binding2
+  namespace: testing
+spec:
+  instanceRef:
+    name: azure-documentdb-instance2
+  secretName: azure-documentdb-instance2-secret

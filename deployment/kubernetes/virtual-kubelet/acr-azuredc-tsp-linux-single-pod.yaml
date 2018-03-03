@@ -62,12 +62,29 @@ spec:
             value: "80"
           - 
             name: ASPNETCORE_apiserverurl
-            value: "http://aci-api.k8.uday365.com"
+            value: "http://localhost:8080"
         ports: 
           - 
             containerPort: 80
             name: http
             protocol: TCP
+      - name: apiserver
+          image: uday31in/azuredctsp-apiserver
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: 1G
+              cpu: 1
+          env:
+            - name: SERVER_PORT
+              value: "8080"
+          ports: 
+            - 
+              containerPort: 8080
+              name: api
+              protocol: TCP
+      
+      
       dnsPolicy: ClusterFirst
       nodeName: virtual-kubelet-uday-k8-aci2-linux
       tolerations:
