@@ -7,7 +7,7 @@ spec:
   clusterServicePlanExternalName: document-db
   parameters:
     location: westus2
-    resourceGroup: acs-osb
+    resourceGroup: uday-k8-osba
 
 ---
 
