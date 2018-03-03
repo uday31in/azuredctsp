@@ -1,124 +1,57 @@
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: azuredctsp-web
-  labels:
-    app: azuredctsp-web-label
-  annotations:
-    external-dns.alpha.kubernetes.io/hostname: aci-web.k8.uday365.com
-spec:
-  ports:    
-    - protocol: TCP
-      port: 80
-      targetPort: 80
-      name: http
-  selector:
-    app: azuredctsp-web-pod
-  type: LoadBalancer
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: azuredctsp-apiserver
-  annotations:
-        external-dns.alpha.kubernetes.io/hostname: aci-api.k8.uday365.com
-  labels:
-    app: azuredctsp-apiserver-label
-spec:
-  ports:
-    # the port that this service should serve on
-  - port: 80
-    targetPort: 80
-    name: http
-    protocol: TCP
-  selector:
-    app: azuredctsp-apiserver-pod
-  type: LoadBalancer
----
+--- 
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata: 
-  name: azuredctsp-web-deployment
+  name: azuredctsp-web-api-deployment
 spec: 
   replicas: 1
   template: 
-    metadata:
+    metadata: 
       labels: 
         app: azuredctsp-web-pod
         role: website
         tier: frontend
     spec: 
       containers: 
-      - name: webclient-nano
-        resources:
-          requests:
-            memory: 1G
-            cpu: 1
-        image: uday31in/azuredctsp-web
-        env: 
-          - 
-            name: azuredctsp_port
-            value: "80"
-          - 
-            name: ASPNETCORE_apiserverurl
-            value: "http://localhost:8080"
-        ports: 
-          - 
-            containerPort: 80
-            name: http
-            protocol: TCP
-      - name: apiserver
+        - 
+          env: 
+            - 
+              name: azuredctsp_port
+              value: "80"
+            - 
+              name: ASPNETCORE_apiserverurl
+              value: "http://localhost:8080"
+          image: uday31in/azuredctsp-web
+          name: webclient-nano
+          ports: 
+            - 
+              containerPort: 80
+              name: http
+              protocol: TCP
+          resources: 
+            requests: 
+              cpu: 1
+              memory: 1G
+        - 
+          env: 
+            - 
+              name: SERVER_PORT
+              value: "8080"
           image: uday31in/azuredctsp-apiserver
           imagePullPolicy: Always
-          resources:
-            requests:
-              memory: 1G
-              cpu: 1
-          env:
-            - name: SERVER_PORT
-              value: "8080"
+          name: frontend
           ports: 
             - 
               containerPort: 8080
               name: api
               protocol: TCP
-      
-      
-      dnsPolicy: ClusterFirst
-      nodeName: virtual-kubelet-uday-k8-aci2-linux
-      tolerations:
-      - key: azure.com/aci
-        effect: NoSchedule
----
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata: 
-  name: azuredctsp-apiserver
-spec: 
-  replicas: 1
-  template: 
-    metadata: 
-      labels: 
-        app: azuredctsp-apiserver-pod
-        role: webapi
-        tier: backend
-    spec: 
-      containers: 
-        - name: apiserver
-          image: uday31in/azuredctsp-apiserver
-          imagePullPolicy: Always
-          resources:
-            requests:
-              memory: 1G
+          resources: 
+            requests: 
               cpu: 1
-          ports: 
-            - 
-              containerPort: 80
-              name: api
-              protocol: TCP
+              memory: 1G
       dnsPolicy: ClusterFirst
       nodeName: virtual-kubelet-uday-k8-aci2-linux
-      tolerations:
-      - key: azure.com/aci
-        effect: NoSchedule
+      tolerations: 
+        - 
+          effect: NoSchedule
+          key: azure.com/aci
