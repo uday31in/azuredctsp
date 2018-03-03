@@ -69,7 +69,7 @@ spec:
             name: http
             protocol: TCP
       dnsPolicy: ClusterFirst
-      nodeName: virtual-kubelet-uday-k8-aci-linux
+      nodeName: virtual-kubelet-uday-k8-aci2-linux
       tolerations:
       - key: azure.com/aci
         effect: NoSchedule
@@ -101,7 +101,7 @@ spec:
               name: api
               protocol: TCP
       dnsPolicy: ClusterFirst
-      nodeName: virtual-kubelet-uday-k8-aci-linux
+      nodeName: virtual-kubelet-uday-k8-aci2-linux
       tolerations:
       - key: azure.com/aci
         effect: NoSchedule
